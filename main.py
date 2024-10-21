@@ -6,7 +6,9 @@ def main():
     p1 = Point(100, 100)
     p2 = Point(500, 100)
     
-    win.draw_line(Line(p1, p2), "red")
+    line1 = Line(p1, p2)
+    
+    win.draw_line(line1, "red")
     
     win.wait_for_close()
 
