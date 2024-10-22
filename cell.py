@@ -3,7 +3,7 @@ from graphics import Line, Point, Window
 
 
 class Cell():
-    def __init__(self, win: Window):
+    def __init__(self, win: None | Window):
         self.has_top_wall = True
         self.has_bottom_wall = True
         self.has_left_wall = True
