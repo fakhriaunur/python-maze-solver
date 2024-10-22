@@ -24,9 +24,9 @@ class Maze():
         self.cell_size_y = cell_size_y
         self.win = win
         
-        self.__create_cells()
+        self._create_cells()
     
-    def __create_cells(self):
+    def _create_cells(self):
         for i in range(self.num_cols):
             cols: List[Cell] = []
             for j in range(self.num_rows):
@@ -36,9 +36,9 @@ class Maze():
         
         for i in range(self.num_cols):
             for j in range(self.num_rows):
-                self.__draw_cell(i, j)
+                self._draw_cell(i, j)
     
-    def __draw_cell(self, i: int, j: int):
+    def _draw_cell(self, i: int, j: int):
         if self.win is None:
             return
         
@@ -49,9 +49,9 @@ class Maze():
         
         cell = self._cells[i][j]
         cell.draw(x1, y1, x2, y2)
-        self.__animate()
+        self._animate()
     
-    def __animate(self):
+    def _animate(self):
         if self.win is None:
             return
         

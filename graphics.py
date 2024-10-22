@@ -18,27 +18,27 @@ class Line():
     
 class Window():
     def __init__(self, width: int, height: int):
-        self.__root_widget = Tk()
-        self.__root_widget.title("Maze Solver")
-        self.__canvas = Canvas(
-            self.__root_widget, bg="white", height=height, width=width
+        self._root_widget = Tk()
+        self._root_widget.title("Maze Solver")
+        self._canvas = Canvas(
+            self._root_widget, bg="white", height=height, width=width
         )
-        self.__canvas.pack(fill=BOTH, expand=1)
-        self.__is_running = False
-        self.__root_widget.protocol("WM_DELETE_WINDOW", self.close)
+        self._canvas.pack(fill=BOTH, expand=1)
+        self._is_running = False
+        self._root_widget.protocol("WM_DELETE_WINDOW", self.close)
     
     def redraw(self):
-        self.__root_widget.update_idletasks()
-        self.__root_widget.update()
+        self._root_widget.update_idletasks()
+        self._root_widget.update()
     
     def wait_for_close(self):
-        self.__is_running = True
-        while self.__is_running:
+        self._is_running = True
+        while self._is_running:
             self.redraw()
         print("window closed...")
     
     def close(self):
-        self.__is_running = False
+        self._is_running = False
     
     def draw_line(self, line: Line, fill_color="black"):
-        line.draw(self.__canvas, fill_color)
+        line.draw(self._canvas, fill_color)
