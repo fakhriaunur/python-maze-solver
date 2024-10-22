@@ -44,6 +44,6 @@ class Cell():
         self.__win.draw_line(line, fill_color)
     
     def __center_point(self):
-        mid_x = abs(self.__x2 - self.__x1) / 2 + self.__x1
-        mid_y = abs(self.__y2 - self.__y1) / 2 + self.__y1
+        mid_x = abs(self.__x2 - self.__x1) // 2 + self.__x1
+        mid_y = abs(self.__y2 - self.__y1) // 2 + self.__y1
         return (mid_x, mid_y)
