@@ -21,6 +21,10 @@ def main():
     cell3.has_bottom_wall = False
     cell3.draw(50, 50, 610, 610)
     
+    cell2.draw_move(cell1)
+    
+    cell1.draw_move(cell3, True)
+    
     win.wait_for_close()
 
 if __name__ == "__main__":

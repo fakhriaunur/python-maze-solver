@@ -1,7 +1,7 @@
 from tkinter import Tk, BOTH, Canvas
 
 class Point():
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: float, y: float):
         self.x = x
         self.y = y
 
@@ -17,7 +17,7 @@ class Line():
         )
     
 class Window():
-    def __init__(self, width: int, height: int):
+    def __init__(self, width: float, height: float):
         self.__root_widget = Tk()
         self.__root_widget.title("Maze Solver")
         self.__canvas = Canvas(
