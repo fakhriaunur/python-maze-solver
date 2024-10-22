@@ -32,6 +32,34 @@ class Tests(unittest.TestCase):
             len(m1._cells[0]),
             num_rows
         )
+    
+    def test_entrance_wall_removed(self):
+        maze = Maze(0, 0, 10, 10, 10, 10, None)
+        maze._break_entrance_and_exit()
+        
+        self.assertEqual(
+            maze._cells[0][0].has_top_wall, False
+        )
+    
+    def test_exit_wall_removed(self):
+        maze = Maze(0, 0, 10, 10, 10, 10, None)
+        maze._break_entrance_and_exit()
+        
+        self.assertEqual(
+            maze._cells[-1][-1].has_bottom_wall, False
+        )
+    
+    def test_other_walls_intact(self):
+        maze = Maze(0, 0, 10, 10, 10, 10, None)
+        maze._break_entrance_and_exit()
+        
+        self.assertEqual(
+            maze._cells[0][0].has_right_wall, True
+        )
+        
+        self.assertEqual(
+            maze._cells[-1][-1].has_left_wall, True
+        )
 
 if __name__ == "__main__":
     unittest.main()
