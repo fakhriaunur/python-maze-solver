@@ -1,4 +1,5 @@
-from graphics import Cell, Line, Point, Window
+from cell import Cell
+from graphics import Line, Point, Window
 
 def main():
     win = Window(800, 600)
@@ -10,17 +11,15 @@ def main():
     
     # win.draw_line(line1, "red")
     
-    p3 = Point(100, 100)
-    p4 = Point(500, 500)
+    cell1 = Cell(win)
+    cell1.draw(100, 100, 500, 500)
     
-    cell1 = Cell(p3, p4, win)
-    cell1.draw()
+    cell2 = Cell(win)
+    cell2.draw(200, 200, 300, 300)
     
-    p5 = Point(200, 200)
-    p6 = Point(300, 300)
-    
-    cell2 = Cell(p5, p6, win)
-    cell2.draw()
+    cell3 = Cell(win)
+    cell3.has_bottom_wall = False
+    cell3.draw(50, 50, 610, 610)
     
     win.wait_for_close()
 
