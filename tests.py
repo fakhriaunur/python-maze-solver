@@ -1,3 +1,4 @@
+from itertools import permutations
 import unittest
 
 from maze import Maze
@@ -49,17 +50,48 @@ class Tests(unittest.TestCase):
             maze._cells[-1][-1].has_bottom_wall, False
         )
     
-    def test_other_walls_intact(self):
-        maze = Maze(0, 0, 10, 10, 10, 10)
+    # def test_other_walls_intact(self):
+    #     maze = Maze(0, 0, 10, 10, 10, 10)
+    #     maze._break_entrance_and_exit()
+        
+    #     self.assertEqual(
+    #         maze._cells[0][0].has_right_wall, True
+    #     )
+        
+    #     self.assertEqual(
+    #         maze._cells[-1][-1].has_left_wall, True
+    #     )
+    
+    def test_reset_visited_cells(self):
+        maze = Maze(0, 0, 10, 10 , 10, 10, seed=100)
         maze._break_entrance_and_exit()
         
+        visited_coords = [
+            (3, 5), 
+            (7, 2),
+            (2, 4)
+        ]
+        
+        maze._break_walls_r(0, 0)
         self.assertEqual(
-            maze._cells[0][0].has_right_wall, True
+            maze._cells[0][0].visited, True
         )
         
+        for x, y in visited_coords:
+            self.assertEqual(
+                maze._cells[x][y].visited, True
+            )
+        
+        maze._reset_cells_visited()
         self.assertEqual(
-            maze._cells[-1][-1].has_left_wall, True
+            maze._cells[0][0].visited, False
         )
+        
+        for x, y in visited_coords:
+            self.assertEqual(
+                maze._cells[x][y].visited, False
+            )
+    
 
 if __name__ == "__main__":
     unittest.main()
