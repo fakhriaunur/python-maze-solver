@@ -1,9 +1,9 @@
-
+from typing import Optional
 from graphics import Line, Point, Window
 
 
 class Cell():
-    def __init__(self, win: None | Window):
+    def __init__(self, win: Optional[Window]= None):
         self.has_top_wall = True
         self.has_bottom_wall = True
         self.has_left_wall = True
@@ -13,6 +13,7 @@ class Cell():
         self._y1 = None
         self._y2 = None
         self._win = win
+        self.visited = False
     
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
