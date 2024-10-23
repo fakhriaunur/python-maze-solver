@@ -14,6 +14,7 @@ def main():
     seed = 100
     
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, seed)
+    maze.solve()
     # maze._break_walls_r(0, 0)
     # win = Window(800, 600)
     

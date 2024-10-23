@@ -1,7 +1,9 @@
 from time import sleep
+import time
 from cell import Cell
 from graphics import Window
 from typing import List, Optional
+from collections import deque
 import random
 
 
@@ -63,7 +65,7 @@ class Maze():
             return
         
         self._win.redraw()
-        sleep(0.05)
+        sleep(0.01)
     
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -134,3 +136,91 @@ class Maze():
         for col in self._cells:
             for cell in col:
                 cell.visited = False
+    
+    def solve(self):
+        time_start = time.time()
+        result = self._solve_r(0, 0)
+        # result = self._solve_bfs(0, 0)
+        time_end = time.time()
+        print(f"result: {result}, within {time_end - time_start}sec")
+        return result
+    
+    def _solve_bfs(self, i: int, j: int):
+        queue = deque([(i, j)])
+        visited = set()
+        visited.add((i, j))
+        
+        while queue:
+            self._animate()
+            
+            x, y = queue.popleft()
+            
+            if self._is_end(x, y):
+                return True
+            
+            # cols, rows = len(self._cells), len(self._cells[0])
+            for nx, ny in self._get_neighbors(x, y):
+                if (nx, ny) not in visited:
+                    curr_cell = self._cells[x][y]
+                    to_cell = self._cells[nx][ny]
+                    curr_cell.draw_move(to_cell)
+                    visited.add((nx, ny))
+                    queue.append((nx, ny))
+        
+        return False
+        
+    def _solve_r(self, i: int, j: int):
+        self._animate()
+        self._cells[i][j].visited = True
+        
+        if self._is_end(i, j):
+            return True
+        
+        # cols, rows = len(self._cells), len(self._cells[0])
+        for ni, nj in self._get_neighbors(i, j):
+            if not self._cells[ni][nj].visited:
+                curr_cell = self._cells[i][j]
+                to_cell = self._cells[ni][nj]
+                curr_cell.draw_move(to_cell)
+                if self._solve_r(ni, nj):
+                    return True
+        
+        return False
+    
+    def _is_end(self, i: int,j: int):
+        last_col = self._num_cols - 1
+        last_row = self._num_rows - 1
+        return (i, j) == (last_col, last_row)
+    
+    def _is_blocked(self, i: int, j: int, direction):
+        curr_cell = self._cells[i][j]
+        
+        if direction == "top":
+            return curr_cell.has_top_wall
+        elif direction == "bottom":
+            return curr_cell.has_bottom_wall
+        elif direction == "left":
+            return curr_cell.has_left_wall
+        elif direction == "right":
+            return curr_cell.has_right_wall
+        
+        return True
+    
+    def _get_neighbors(self, i: int, j: int):
+        directions = {
+            "right": (1, 0),
+            "bottom": (0, 1),
+            "left": (-1, 0),
+            "top": (0, -1)
+        }
+        neighbors = []
+        
+        for direction, (di, dj) in directions.items():
+            ni, nj = i + di, j + dj
+            if 0 <= ni < self._num_cols and 0 <= nj < self._num_rows:
+                # curr_cell = self._cells[i][j]
+                if not self._is_blocked(i, j, direction):
+                    neighbors.append((ni, nj))
+        
+        return neighbors
+            
